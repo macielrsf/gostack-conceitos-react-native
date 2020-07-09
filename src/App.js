@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 
 import {
-    ScrollView,
     SafeAreaView,
     View,
     FlatList,
@@ -42,9 +41,11 @@ export default function App() {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
-            <ScrollView style={{ flex: 1 }}>
-                <SafeAreaView style={styles.container}>
-                    {repositories.map(repository => (
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    data={repositories}
+                    keyExtractor={item => item.id}
+                    renderItem={({item: repository}) => (
                         <View key={repository.id} style={styles.repositoryContainer}>
                             <Text style={styles.repository}>{repository.title}</Text>
 
@@ -71,10 +72,9 @@ export default function App() {
                                 <Text style={styles.buttonText}>Curtir</Text>
                             </TouchableOpacity>
                         </View>
-
-                    ))}
-                </SafeAreaView>
-            </ScrollView>
+                    )}
+                />
+            </SafeAreaView>
         </>
     );
 }
